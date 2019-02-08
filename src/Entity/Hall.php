@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,17 @@ class Hall
      * @ORM\ManyToOne(targetEntity="Cinema")
      */
     private $cinema;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Seans", mappedBy="hall", orphanRemoval=true)
+     */
+    private $seans;
+
+    public function __construct()
+    {
+        $this->rows = new ArrayCollection();
+        $this->seans = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,5 +75,43 @@ class Hall
         return $this;
     }
 
+    /**
+     * @return Collection|Seans[]
+     */
+    public function getSeans(): Collection
+    {
+        return $this->seans;
+    }
+
+    /**
+     * @param Seans $sean
+     * @return Hall
+     */
+    public function addSean(Seans $sean): self
+    {
+        if (!$this->seans->contains($sean)) {
+            $this->seans[] = $sean;
+            $sean->setHall($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Seans $sean
+     * @return Hall
+     */
+    public function removeSean(Seans $sean): self
+    {
+        if ($this->seans->contains($sean)) {
+            $this->seans->removeElement($sean);
+            // set the owning side to null (unless already changed)
+            if ($sean->getHall() === $this) {
+                $sean->setHall(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

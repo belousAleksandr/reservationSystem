@@ -8,10 +8,24 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 final class HallAdmin extends AbstractAdmin
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        if ($this->isChild()) {
+            return;
+        }
+
+        // This is the route configuration as a parent
+        $collection->clear();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -43,7 +57,8 @@ final class HallAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('name');
+            ->add('name')
+        ;
     }
 
     /**

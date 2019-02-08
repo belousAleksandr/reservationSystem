@@ -17,6 +17,11 @@ class Seat
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Row")
+     */
+    private $row;
+
+    /**
      * @ORM\Column(type="smallint")
      */
     private $position;
@@ -34,6 +39,25 @@ class Seat
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * @return Row|null
+     */
+    public function getRow(): ?Row
+    {
+        return $this->row;
+    }
+
+    /**
+     * @param Row $row
+     * @return Seat
+     */
+    public function setRow(Row $row): self
+    {
+        $this->row = $row;
 
         return $this;
     }
