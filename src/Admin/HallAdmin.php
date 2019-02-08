@@ -58,6 +58,8 @@ final class HallAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('name')
+            ->add('rows')
+            ->add('columns')
         ;
     }
 

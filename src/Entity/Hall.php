@@ -33,9 +33,18 @@ class Hall
      */
     private $seans;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $rows;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $columns;
+
     public function __construct()
     {
-        $this->rows = new ArrayCollection();
         $this->seans = new ArrayCollection();
     }
 
@@ -114,4 +123,27 @@ class Hall
         return $this;
     }
 
+    public function getRows(): ?int
+    {
+        return $this->rows;
+    }
+
+    public function setRows(int $rows): self
+    {
+        $this->rows = $rows;
+
+        return $this;
+    }
+
+    public function getColumns(): ?int
+    {
+        return $this->columns;
+    }
+
+    public function setColumns(int $columns): self
+    {
+        $this->columns = $columns;
+
+        return $this;
+    }
 }
