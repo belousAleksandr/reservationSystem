@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Form\SeansRowCollectionType;
+use App\Form\SeansRowType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -58,7 +60,13 @@ final class SeansAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('name');
+            ->add('name')
+            ->add('rows', SeansRowCollectionType::class, [
+                'entry_type' => SeansRowType::class,
+                'entry_options' => [],
+                'by_reference'=> false
+            ])
+        ;
     }
 
     /**

@@ -19,15 +19,15 @@ class Row
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Seat", mappedBy="row")
-     */
-    private $seats;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Seans", inversedBy="rows")
      * @ORM\JoinColumn(nullable=false)
      */
     private $seans;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Seat", mappedBy="row",cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $seats;
 
     public function __construct()
     {
@@ -39,14 +39,6 @@ class Row
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSeats(): Collection
-    {
-        return $this->seats;
-    }
-
     public function getSeans(): ?Seans
     {
         return $this->seans;
@@ -55,6 +47,37 @@ class Row
     public function setSeans(?Seans $seans): self
     {
         $this->seans = $seans;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Seat[]
+     */
+    public function getSeats(): Collection
+    {
+        return $this->seats;
+    }
+
+    public function addSeat(Seat $seat): self
+    {
+        if (!$this->seats->contains($seat)) {
+            $this->seats[] = $seat;
+            $seat->setRow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeat(Seat $seat): self
+    {
+        if ($this->seats->contains($seat)) {
+            $this->seats->removeElement($seat);
+            // set the owning side to null (unless already changed)
+            if ($seat->getRow() === $this) {
+                $seat->setRow(null);
+            }
+        }
 
         return $this;
     }

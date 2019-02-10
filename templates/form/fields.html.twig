@@ -1,0 +1,19 @@
+{% block seans_rows_row %}
+    {% spaceless %}
+        <div class="seans-row-wrap">
+            <div class="seans-table">
+                {% for rowForm in form.children %}
+                    <div class="seans-row">
+
+                        {% for columnForm in rowForm.seats.children %}
+                        <div class="seans-seat">
+                            {{ form_widget(columnForm.status) }}
+                            {{ form_widget(columnForm.price) }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

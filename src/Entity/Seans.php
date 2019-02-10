@@ -30,7 +30,7 @@ class Seans
     private $hall;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Row", mappedBy="seans", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Row", mappedBy="seans", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $rows;
 
@@ -73,7 +73,43 @@ class Seans
      */
     public function getRows(): Collection
     {
+        $this->removeRendundantRowsData();
+        foreach (range(0, $this->getHall()->getRows() - 1) as $rowKey) {
+            $row = $this->rows->get($rowKey);
+            if ($row === null) {
+                $row = new Row();
+                $this->addRow($row);
+            }
+
+            foreach (range(0, $this->getHall()->getColumns() - 1) as $columnKey) {
+
+                $seat = $row->getSeats()->get($columnKey);
+                if ($seat === null) {
+
+                    $seat = new Seat();
+                    $row->addSeat($seat);
+                }
+            }
+        }
+
         return $this->rows;
+    }
+
+    private function removeRendundantRowsData()
+    {
+        foreach (range($this->rows->count(), $this->getHall()->getRows()) as $key) {
+            $this->rows->remove($key);
+            unset($key);
+        }
+        /** @var Row $row */
+        foreach ($this->rows as $row) {
+            $seats = $row->getSeats();
+
+            foreach (range($seats->count(), $this->getHall()->getColumns()) as $key) {
+                $seats->remove($key);
+                unset($key);
+            }
+        }
     }
 
     public function addRow(Row $row): self

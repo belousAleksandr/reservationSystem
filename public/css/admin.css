@@ -1,0 +1,17 @@
+.seans-row {
+    display: table-row;
+}
+
+.seans-seat {
+    width: 30px;
+    display: table-cell;
+}
+
+.seans-table {
+    display: table;
+}
+
+.seans-row-wrap {
+    overflow: scroll;
+    width: 100%;
+}

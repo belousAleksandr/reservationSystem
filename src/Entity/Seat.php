@@ -9,6 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Seat
 {
+    const STATUS_ENABLED = 'enabled';
+    const STATUS_BOOKED = 'booked';
+    const STATUS_DISABLED = 'disabled';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,45 +21,56 @@ class Seat
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Row")
+     * @ORM\Column(type="float", nullable=true)
      */
-    private $row;
+    private $price;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=10)
      */
-    private $position;
+    private $status = self::STATUS_ENABLED;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Row", inversedBy="seats")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $row;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPosition(): ?int
+    public function getPrice(): ?float
     {
-        return $this->position;
+        return $this->price;
     }
 
-    public function setPosition(int $position): self
+    public function setPrice(float $price): self
     {
-        $this->position = $position;
+        $this->price = $price;
 
         return $this;
     }
 
-    /**
-     * @return Row|null
-     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
     public function getRow(): ?Row
     {
         return $this->row;
     }
 
-    /**
-     * @param Row $row
-     * @return Seat
-     */
-    public function setRow(Row $row): self
+    public function setRow(?Row $row): self
     {
         $this->row = $row;
 
