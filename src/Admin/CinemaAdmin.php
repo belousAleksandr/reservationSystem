@@ -61,7 +61,8 @@ final class CinemaAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-            ->add('name');
+            ->add('name')
+            ->add('slug');
     }
 
     /**
@@ -71,6 +72,7 @@ final class CinemaAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('name')
+            ->add('slug')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -86,7 +88,8 @@ final class CinemaAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('name');
+            ->add('name')
+            ->add('slug');
     }
 
     /**

@@ -1,0 +1,7 @@
+App\Entity\Cinema:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+
+    properties:
+        name:
+            - NotBlank: ~
