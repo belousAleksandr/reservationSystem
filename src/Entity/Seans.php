@@ -34,6 +34,11 @@ class Seans
      */
     private $rows;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $datetime;
+
     public function __construct()
     {
         $this->rows = new ArrayCollection();
@@ -131,6 +136,18 @@ class Seans
                 $row->setSeans(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDatetime(): ?\DateTimeInterface
+    {
+        return $this->datetime;
+    }
+
+    public function setDatetime(\DateTimeInterface $datetime): self
+    {
+        $this->datetime = $datetime;
 
         return $this;
     }

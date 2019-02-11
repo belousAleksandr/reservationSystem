@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\DateTimePickerType;
 
 final class SeansAdmin extends AbstractAdmin
 {
@@ -61,6 +62,15 @@ final class SeansAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('name')
+            ->add('datetime', DateTimePickerType::class, [
+                'dp_side_by_side'       => true,
+                'dp_use_current'        => false,
+                'dp_use_seconds'        => false,
+                'dp_collapse'           => true,
+                'dp_calendar_weeks'     => false,
+                'dp_view_mode'          => 'days',
+                'dp_min_view_mode'      => 'days',
+            ])
             ->add('rows', SeansRowCollectionType::class, [
                 'entry_type' => SeansRowType::class,
                 'entry_options' => [],
