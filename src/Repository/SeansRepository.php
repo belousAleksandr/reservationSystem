@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Cinema;
 use App\Entity\Seans;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,22 +20,28 @@ class SeansRepository extends ServiceEntityRepository
         parent::__construct($registry, Seans::class);
     }
 
-    // /**
-    //  * @return Seans[] Returns an array of Seans objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @param Cinema $cinema
+      * @param \DateTime $dateTime
+      * @return Seans[] Returns an array of Seans objects
+      */
+    public function findByCinemaAndDate(Cinema $cinema, \DateTime $dateTime): array
     {
+        $endDate = clone $dateTime;
+        $endDate->modify('+1 day');
+
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin('s.hall', 'hall')
+            ->andWhere('hall.cinema = :cinema')
+            ->andWhere('s.datetime BETWEEN :startDate AND :endDate')
+            ->setParameter('cinema', $cinema)
+            ->setParameter('startDate', $dateTime)
+            ->setParameter('endDate', $endDate)
             ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Seans

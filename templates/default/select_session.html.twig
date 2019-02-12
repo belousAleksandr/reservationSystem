@@ -1,0 +1,18 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+
+    <ul>
+        {% for session in sessions %}
+        <li>
+            <a href="{{ path('selectSeats', {'slug': cinema.slug, 'id': session.id }) }}">
+                {{ session.hall.name }} - {{ session.name }} {{ session.datetime | date }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

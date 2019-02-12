@@ -1,3 +1,5 @@
+{% form_theme form _self %}
+
 {% block seans_rows_row %}
     {% spaceless %}
         <div class="seans-row-wrap">
@@ -15,5 +17,23 @@
                 {% endfor %}
             </div>
         </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block reservation_widget %}
+    {% spaceless %}
+        {% for groupData in form.seats.vars.choices %}
+            <div>
+                Row {{ groupData.label }}
+                <div>
+                    {% for seat in groupData.choices %}
+                        <div>
+                            {{ form_widget(form.seats[seat.value]) }}
+                            {{ form_label(form.seats[seat.value]) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
     {% endspaceless %}
 {% endblock %}

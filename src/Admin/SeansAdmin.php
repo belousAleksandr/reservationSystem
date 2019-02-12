@@ -70,6 +70,7 @@ final class SeansAdmin extends AbstractAdmin
                 'dp_calendar_weeks'     => false,
                 'dp_view_mode'          => 'days',
                 'dp_min_view_mode'      => 'days',
+                'dp_min_date' => (new \DateTime())->format('Y-m-d'),
             ])
             ->add('rows', SeansRowCollectionType::class, [
                 'entry_type' => SeansRowType::class,

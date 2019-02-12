@@ -36,6 +36,11 @@ class Seat
      */
     private $row;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="seats")
+     */
+    private $reservation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,6 +78,18 @@ class Seat
     public function setRow(?Row $row): self
     {
         $this->row = $row;
+
+        return $this;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?Reservation $reservation): self
+    {
+        $this->reservation = $reservation;
 
         return $this;
     }
