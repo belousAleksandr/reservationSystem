@@ -19,22 +19,22 @@ class SeatRepository extends ServiceEntityRepository
         parent::__construct($registry, Seat::class);
     }
 
-    // /**
-    //  * @return Seat[] Returns an array of Seat objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Returns an array of Seat objects
+     *
+     * @param array $seats
+     * @return array
+     */
+    public function findReservedSeats(array $seats): array
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('s.id IN (:seats)')
+            ->andWhere('s.reservation IS NOT NULL')
+            ->setParameter('seats', $seats)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Seat

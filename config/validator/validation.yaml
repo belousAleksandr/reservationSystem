@@ -5,3 +5,15 @@ App\Entity\Cinema:
     properties:
         name:
             - NotBlank: ~
+
+App\Entity\Reservation:
+    constraints:
+        - App\Validator\ReservationSession: ~
+    properties:
+        seats:
+          - Count:
+              min: 1
+              max: 5
+              minMessage: 'you_must_select_at_least_one_seat'
+              maxMessage: 'you_cannot_select_more_than_seats'
+          - App\Validator\ReservationSeats: ~
