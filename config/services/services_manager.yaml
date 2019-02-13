@@ -1,0 +1,7 @@
+services:
+    App\Manager\ReservationManager:
+        class: App\Manager\ReservationManager
+        arguments:
+            - 'App\Util\PasswordUpdater'
+            - '@doctrine.orm.entity_manager'
+        public: true

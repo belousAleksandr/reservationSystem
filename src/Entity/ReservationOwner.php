@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationOwnerRepository")
  */
-class ReservationOwner implements UserInterface
+class ReservationOwner implements UserInterface, UserPasswordInterface
 {
     /**
      * @ORM\Id()
@@ -38,6 +38,19 @@ class ReservationOwner implements UserInterface
      * @ORM\Column(type="string", length=100)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $salt;
+
+    /** @var string */
+    private $plainPassword;
 
     public function __construct()
     {
@@ -124,35 +137,41 @@ class ReservationOwner implements UserInterface
         return ['ROLE_RESERVATION_OWNER'];
     }
 
-    /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string The password
-     */
-    public function getPassword()
+
+
+    public function setPassword(string $password): self
     {
-        return 'test';
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
+     * {@inheritdoc}
      */
-    public function getSalt()
+    public function getPassword(): ?string
     {
-        return null;
+        return $this->password;
+    }
+
+
+    public function setSalt(string $salt = null): self
+    {
+        $this->salt = $salt;
+
+        return $this;
     }
 
     /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
+     * {@inheritdoc}
+     */
+    public function getSalt(): ?string
+    {
+        return $this->salt;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getUsername()
     {
@@ -160,10 +179,7 @@ class ReservationOwner implements UserInterface
     }
 
     /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
+     * {@inheritdoc}
      */
     public function eraseCredentials()
     {
@@ -173,5 +189,17 @@ class ReservationOwner implements UserInterface
     public function __toString()
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    public function setPlainPassword(string $password): self
+    {
+        $this->plainPassword = $password;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
     }
 }

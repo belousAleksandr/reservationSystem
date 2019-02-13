@@ -1,0 +1,4 @@
+services:
+    App\Util\PasswordUpdater:
+        class: App\Util\PasswordUpdater
+        arguments: ['@security.encoder_factory']

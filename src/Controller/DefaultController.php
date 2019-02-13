@@ -7,6 +7,7 @@ use App\Entity\Reservation;
 use App\Entity\Seans;
 use App\Form\ReservationType;
 use App\Form\SessionRequestType;
+use App\Manager\ReservationManager;
 use App\Model\SessionRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -99,9 +100,7 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($reservation);
-            $manager->flush();
+            $this->get(ReservationManager::class)->create($reservation);
 
             return $this->redirectToRoute('selectSeats', [
                 'slug' => $cinema->getSlug(),
@@ -113,5 +112,13 @@ class DefaultController extends AbstractController
             'form' => $form->createView(),
             'session' => $seans
         ]);
+    }
+
+    public static function getSubscribedServices(): array
+    {
+        $subscribedServices = parent::getSubscribedServices();
+        return array_merge([
+            ReservationManager::class => '?'.ReservationManager::class,
+        ], $subscribedServices);
     }
 }
