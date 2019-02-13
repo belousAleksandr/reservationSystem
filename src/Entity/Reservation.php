@@ -35,6 +35,12 @@ class Reservation
      */
     private $seats;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ReservationOwner", cascade={"persist"}, inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reservationOwner;
+
     public function __construct()
     {
         $this->seats = new ArrayCollection();
@@ -96,6 +102,18 @@ class Reservation
                 $seat->setReservation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReservationOwner(): ?ReservationOwner
+    {
+        return $this->reservationOwner;
+    }
+
+    public function setReservationOwner(?ReservationOwner $reservationOwner): self
+    {
+        $this->reservationOwner = $reservationOwner;
 
         return $this;
     }

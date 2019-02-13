@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Reservation;
 use App\Entity\Seans;
 use App\Entity\Seat;
+use App\Form\Type\ReservationOwnerType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,6 +20,7 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('reservationOwner', ReservationOwnerType::class)
             ->add('seats', EntityType::class, [
                 'class' => Seat::class,
                 'query_builder' => function (EntityRepository $er) use ($options) {

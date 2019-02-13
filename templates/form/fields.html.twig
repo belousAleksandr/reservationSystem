@@ -22,6 +22,7 @@
 
 {% block reservation_widget %}
     {% spaceless %}
+        {{ form_row(form.reservationOwner) }}
         {{ form_errors(form.seats) }}
         {% for groupData in form.seats.vars.choices %}
             <div>
