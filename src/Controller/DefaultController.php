@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Class DefaultController
- *
+ * @Route("/reserving")
  * @package App\Controller
  */
 class DefaultController extends AbstractController
