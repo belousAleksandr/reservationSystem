@@ -3,55 +3,51 @@
 namespace App\Form;
 
 use App\Entity\Reservation;
+use App\Entity\ReservationOwner;
 use App\Entity\Seans;
 use App\Entity\Seat;
 use App\Form\Type\ReservationOwnerType;
+use App\Form\Type\ReservationSeatsType;
+use App\Validator\ReservationSeats;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ReservationType extends AbstractType
 {
+    /** @var TokenStorageInterface */
+    private $tokenStorage;
+
+    /**
+     * ReservationType constructor.
+     * @param TokenStorageInterface $tokenStorage
+     */
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('reservationOwner', ReservationOwnerType::class)
-            ->add('seats', EntityType::class, [
-                'class' => Seat::class,
-                'query_builder' => function (EntityRepository $er) use ($options) {
-                    return $er->createQueryBuilder('seat')
-                        ->leftJoin('seat.row', 'row')
-                        ->where('row.seans = :session')
-                        ->setParameter('session', $options['session']);
-                },
-                'choice_label' => function ($seat, $key, $value) {
-                    /** @var Seat $seat */
-                    return strtoupper($seat->getId());
-                },
-                'group_by' => function ($seat, $key, $value) {
-                    /** @var Seat $seat */
-                    $row = $seat->getRow();
+        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var Reservation $reservation */
+        $reservation = $options['data'];
+        if ($user instanceof ReservationOwner) {
+            $reservation->setReservationOwner($user);
+        } else {
+            $builder
+                ->add('reservationOwner', ReservationOwnerType::class);
+        }
 
-                    return $row->getId();
-                },
-                'choice_attr' => function ($seat, $key, $value) {
-                    $attr = [];
-                    /** @var Seat $seat */
-                    if ($seat->getReservation() !== null) {
-                        $attr['disabled'] = true;
-                    }
-
-                    return $attr;
-                },
-                'by_reference' => false,
-                'multiple' => true,
-                'expanded' => true,
-            ]);
+        $builder->add('seats', ReservationSeatsType::class, [
+            'session' => $options['session']
+        ]);
     }
 
     /**

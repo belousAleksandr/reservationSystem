@@ -20,18 +20,16 @@
     {% endspaceless %}
 {% endblock %}
 
-{% block reservation_widget %}
+{% block reservation_seats_widget %}
     {% spaceless %}
-        {{ form_row(form.reservationOwner) }}
-        {{ form_errors(form.seats) }}
-        {% for groupData in form.seats.vars.choices %}
+        {% for groupData in form.vars.choices %}
             <div>
                 Row {{ groupData.label }}
                 <div>
                     {% for seat in groupData.choices %}
                         <div>
-                            {{ form_widget(form.seats[seat.value]) }}
-                            {{ form_label(form.seats[seat.value]) }}
+                            {{ form_widget(form[seat.value]) }}
+                            {{ form_label(form[seat.value]) }}
                         </div>
                     {% endfor %}
                 </div>
