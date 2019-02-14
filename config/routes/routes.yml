@@ -1,0 +1,2 @@
+reservation_owner_logout:
+    path: /reserving/reservation-owner/logout
