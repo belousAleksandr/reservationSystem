@@ -7,6 +7,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Cinema }
         calls:
             - [addChild, ['@admin.hall', 'cinema']]
+            - [addChild, ['@admin.reservation', 'cinema']]
         public: true
 
     admin.hall:
@@ -22,5 +23,12 @@ services:
         class: App\Admin\SeansAdmin
         arguments: [~, App\Entity\Seans, App\Controller\SeansAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Seans }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Seans, show_in_dashboard: false }
+        public: true
+
+    admin.reservation:
+        class: App\Admin\ReservationAdmin
+        arguments: [~, App\Entity\Reservation, App\Controller\ReservationAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Reservation, show_in_dashboard: false }
         public: true

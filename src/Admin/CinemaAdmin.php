@@ -30,7 +30,7 @@ final class CinemaAdmin extends AbstractAdmin
 
 
         if ($this->isGranted('EDIT')) {
-            $menu->addChild('Edit Playlist', [
+            $menu->addChild('Edit cinema', [
                 'uri' => $admin->generateUrl('edit', ['id' => $id])
             ]);
         }
@@ -38,6 +38,10 @@ final class CinemaAdmin extends AbstractAdmin
         if ($this->isGranted('LIST')) {
             $menu->addChild('Manage Halls', [
                 'uri' => $admin->generateUrl('admin.hall.list', ['id' => $id])
+            ]);
+
+            $menu->addChild('Reservations', [
+                'uri' => $admin->generateUrl('admin.reservation.list', ['id' => $id])
             ]);
 
             if ($childAdmin instanceof HallAdmin) {
