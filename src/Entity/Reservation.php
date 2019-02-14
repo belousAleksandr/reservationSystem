@@ -41,6 +41,11 @@ class Reservation
      */
     private $reservationOwner;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Payment", cascade={"persist"})
+     */
+    private $payment;
+
     public function __construct()
     {
         $this->seats = new ArrayCollection();
@@ -114,6 +119,18 @@ class Reservation
     public function setReservationOwner(?ReservationOwner $reservationOwner): self
     {
         $this->reservationOwner = $reservationOwner;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(Payment $payment): self
+    {
+        $this->payment = $payment;
 
         return $this;
     }

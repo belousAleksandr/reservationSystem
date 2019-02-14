@@ -100,11 +100,12 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get(ReservationManager::class)->create($reservation);
+            $reservationManager = $this->get(ReservationManager::class);
+            $reservationManager->create($reservation);
 
-            return $this->redirectToRoute('selectSeats', [
-                'slug' => $cinema->getSlug(),
-                'id' => $seans->getId()
+            return $this->redirectToRoute('app_reservation_payment_prepare', [
+                'id' => $reservation->getId(),
+                'gatewayName' => 'offline'
             ]);
         }
 

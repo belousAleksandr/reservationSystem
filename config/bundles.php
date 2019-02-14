@@ -24,4 +24,5 @@ return [
     Sonata\UserBundle\SonataUserBundle::class => ['all' => true],
     Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle::class => ['all' => true],
     App\Application\Sonata\UserBundle\ApplicationSonataUserBundle::class => ['all' => true],
+    Payum\Bundle\PayumBundle\PayumBundle::class => ['all' => true],
 ];

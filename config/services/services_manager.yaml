@@ -5,3 +5,9 @@ services:
             - 'App\Util\PasswordUpdater'
             - '@doctrine.orm.entity_manager'
         public: true
+
+    App\Manager\ReservationPaymentManager:
+        class: App\Manager\ReservationPaymentManager
+        arguments:
+            - '@payum'
+        public: true

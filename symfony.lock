@@ -1,4 +1,7 @@
 {
+    "clue/stream-filter": {
+        "version": "v1.4.0"
+    },
     "cocur/slugify": {
         "version": "v3.2"
     },
@@ -86,6 +89,15 @@
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.5.2"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -95,6 +107,27 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
     },
+    "league/uri": {
+        "version": "5.3.0"
+    },
+    "league/uri-components": {
+        "version": "1.8.2"
+    },
+    "league/uri-hostname-parser": {
+        "version": "1.1.1"
+    },
+    "league/uri-interfaces": {
+        "version": "1.1.1"
+    },
+    "league/uri-manipulations": {
+        "version": "1.5.0"
+    },
+    "league/uri-parser": {
+        "version": "1.4.1"
+    },
+    "league/uri-schemes": {
+        "version": "1.2.1"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -103,6 +136,33 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.0.4"
+    },
+    "payum/core": {
+        "version": "1.5.1"
+    },
+    "payum/iso4217": {
+        "version": "1.0.1"
+    },
+    "payum/offline": {
+        "version": "1.5.1"
+    },
+    "payum/payum-bundle": {
+        "version": "2.3.3"
+    },
+    "php-http/guzzle6-adapter": {
+        "version": "v2.0.1"
+    },
+    "php-http/httplug": {
+        "version": "v2.0.0"
+    },
+    "php-http/message": {
+        "version": "1.7.2"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/promise": {
+        "version": "v1.0.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -119,6 +179,12 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
@@ -127,6 +193,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

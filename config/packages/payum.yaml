@@ -1,0 +1,11 @@
+payum:
+    security:
+        token_storage:
+            App\Entity\PaymentToken: { doctrine: orm }
+
+    storages:
+        App\Entity\Payment: { doctrine: orm }
+
+    gateways:
+        offline:
+            factory: offline
