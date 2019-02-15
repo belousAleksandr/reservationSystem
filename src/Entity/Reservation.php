@@ -46,6 +46,11 @@ class Reservation
      */
     private $payment;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $summaryPrice;
+
     public function __construct()
     {
         $this->seats = new ArrayCollection();
@@ -131,6 +136,18 @@ class Reservation
     public function setPayment(Payment $payment): self
     {
         $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getSummaryPrice(): ?float
+    {
+        return $this->summaryPrice;
+    }
+
+    public function setSummaryPrice(float $summaryPrice): self
+    {
+        $this->summaryPrice = $summaryPrice;
 
         return $this;
     }

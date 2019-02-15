@@ -4,6 +4,7 @@ services:
         arguments:
             - 'App\Util\PasswordUpdater'
             - '@doctrine.orm.entity_manager'
+            - 'App\Manager\ReservationPriceManager'
         public: true
 
     App\Manager\CinemaManager:
@@ -16,4 +17,8 @@ services:
         class: App\Manager\ReservationPaymentManager
         arguments:
             - '@payum'
+        public: true
+
+    App\Manager\ReservationPriceManager:
+        class: App\Manager\ReservationPriceManager
         public: true

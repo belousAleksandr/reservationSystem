@@ -16,16 +16,25 @@ class ReservationManager
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var ReservationPriceManager */
+    private $reservationPriceManager;
+
     /**
      * ReservationManager constructor.
      *
      * @param PasswordUpdater $passwordUpdater
      * @param EntityManagerInterface $entityManager
+     * @param ReservationPriceManager $reservationPriceManager
      */
-    public function __construct(PasswordUpdater $passwordUpdater, EntityManagerInterface $entityManager)
+    public function __construct(
+        PasswordUpdater $passwordUpdater,
+        EntityManagerInterface $entityManager,
+        ReservationPriceManager $reservationPriceManager
+    )
     {
         $this->passwordUpdater = $passwordUpdater;
         $this->entityManager = $entityManager;
+        $this->reservationPriceManager = $reservationPriceManager;
     }
 
     /**
@@ -38,6 +47,9 @@ class ReservationManager
         if ($reservation->getReservationOwner()->getId() === null) {
             $this->passwordUpdater->hashPassword($reservation->getReservationOwner());
         }
+
+        $this->reservationPriceManager->calculateAndSetReservationPrice($reservation);
+
         $this->entityManager->persist($reservation);
         $this->entityManager->flush();
     }

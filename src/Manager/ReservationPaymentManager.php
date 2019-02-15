@@ -43,8 +43,8 @@ class ReservationPaymentManager
 
         //TODO: Need to fix hardcoded value
         $payment->setCurrencyCode('EUR');
-        $payment->setTotalAmount(123); // 1.23 EUR
-        $payment->setDescription('A description');
+        $payment->setTotalAmount($reservation->getSummaryPrice());
+        $payment->setDescription('Reservations seats in a cinema');
         $payment->setClientId($reservationOwner->getId());
         $payment->setClientEmail($reservationOwner->getEmail());
 
