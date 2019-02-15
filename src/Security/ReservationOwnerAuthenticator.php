@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Security;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -24,25 +23,39 @@ class ReservationOwnerAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
-    private $entityManager;
+    /** @var RouterInterface */
     private $router;
+    /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    /**
+     * ReservationOwnerAuthenticator constructor.
+     *
+     * @param RouterInterface $router
+     * @param CsrfTokenManagerInterface $csrfTokenManager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
+    public function __construct(RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->entityManager = $entityManager;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request)
+    /**
+     * {@inheritdoc}
+     */
+    public function supports(Request $request): bool
     {
         return 'app_reservation_owner_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getCredentials(Request $request)
     {
         $credentials = [
@@ -58,6 +71,9 @@ class ReservationOwnerAuthenticator extends AbstractFormLoginAuthenticator
         return $credentials;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
@@ -67,24 +83,30 @@ class ReservationOwnerAuthenticator extends AbstractFormLoginAuthenticator
         return $userProvider->loadUserByUsername($credentials['email']);
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    /**
+     * {@inheritdoc}
+     */
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    /**
+     * {@inheritdoc}
+     */
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse
     {
-//       TODO: TMP SOLUTION AND MUST BE FIXED
-        return new RedirectResponse($this->router->generate('index', ['slug' => 'galactica']));
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->router->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->router->generate('index'));
     }
 
-    protected function getLoginUrl()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getLoginUrl(): string
     {
         return $this->router->generate('app_reservation_owner_login');
     }

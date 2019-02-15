@@ -6,6 +6,13 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <div>
+            {% if app.user %}
+                <a href="{{ path('reservation_owner_logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ path('app_reservation_owner_login') }}">Login</a>
+            {% endif %}
+        </div>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
