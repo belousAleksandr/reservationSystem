@@ -79,5 +79,11 @@
             "allow-contrib": false,
             "require": "3.4.*"
         }
+    },
+    "repositories": {
+        "phpunit-bridge": {
+            "type": "path",
+            "url": "/unison/vendor/symfony/phpunit-bridge"
+        }
     }
 }
