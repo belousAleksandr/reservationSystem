@@ -6,6 +6,12 @@ services:
             - '@doctrine.orm.entity_manager'
         public: true
 
+    App\Manager\CinemaManager:
+        class: App\Manager\CinemaManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        public: true
+
     App\Manager\ReservationPaymentManager:
         class: App\Manager\ReservationPaymentManager
         arguments:

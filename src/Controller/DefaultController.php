@@ -7,6 +7,7 @@ use App\Entity\Reservation;
 use App\Entity\Seans;
 use App\Form\ReservationType;
 use App\Form\SessionRequestType;
+use App\Manager\CinemaManager;
 use App\Manager\ReservationManager;
 use App\Model\SessionRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,12 +25,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/{slug}/", name="index")
+     * @Route("/", name="index")
+     * @return Response
+     */
+    public function indexAction(): Response
+    {
+       return $this->render('default/index.html.twig', [
+           'cinemas' => $this->get(CinemaManager::class)->findBy([])
+       ]);
+    }
+
+    /**
+     * @Route("/{slug}/", name="select_date")
      * @param Cinema $cinema
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Cinema $cinema, Request $request): Response
+    public function selectDateAction(Cinema $cinema, Request $request): Response
     {
         $form = $this->createForm(SessionRequestType::class, null, [
             'method' => 'post',
@@ -49,7 +61,7 @@ class DefaultController extends AbstractController
         }
 
 
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/select_date.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -120,6 +132,7 @@ class DefaultController extends AbstractController
         $subscribedServices = parent::getSubscribedServices();
         return array_merge([
             ReservationManager::class => '?'.ReservationManager::class,
+            CinemaManager::class => '?'.CinemaManager::class,
         ], $subscribedServices);
     }
 }

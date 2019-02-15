@@ -3,7 +3,9 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <ul>
+    {% for cinema in cinemas %}
+        <li><a href="{{ path('select_date', {'slug': cinema.slug})}}">{{ cinema.name }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}
