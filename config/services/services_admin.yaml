@@ -21,14 +21,14 @@ services:
 
     admin.seans:
         class: App\Admin\SeansAdmin
-        arguments: [~, App\Entity\Seans, App\Controller\SeansAdminController]
+        arguments: [~, App\Entity\Seans, App\Controller\Admin\SeansAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Seans, show_in_dashboard: false }
         public: true
 
     admin.reservation:
         class: App\Admin\ReservationAdmin
-        arguments: [~, App\Entity\Reservation, App\Controller\ReservationAdminController]
+        arguments: [~, App\Entity\Reservation, App\Controller\Admin\ReservationAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Reservation, show_in_dashboard: false }
         public: true
