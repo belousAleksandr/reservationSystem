@@ -34,4 +34,10 @@ trait TimestampableTrait
     {
         return $this->updated;
     }
+
+    public function __clone()
+    {
+        $this->created = null;
+        $this->updated = null;
+    }
 }

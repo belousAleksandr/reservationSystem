@@ -11,9 +11,30 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 final class CinemaAdmin extends AbstractAdmin
 {
+
+    /**
+     * The Access mapping.
+     *
+     * @var array [action1 => requiredRole1, action2 => [requiredRole2, requiredRole3]]
+     */
+    protected $accessMapping = [
+        'hall_session_copy' => 'HALL_SESSION_COPY'
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('hall_session_copy', '{id}/hall-session-copy/{session_id}', [
+            '_controller' => 'App\Controller\Admin\SeansAdminController:copyAction'
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */

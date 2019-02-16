@@ -1,0 +1,7 @@
+{% set cinemaAdmin = admin.parent.parent %}
+{% if cinemaAdmin.hasAccess('hall_session_copy', object) and cinemaAdmin.hasRoute('hall_session_copy') %}
+    <a href="{{ cinemaAdmin.generateObjectUrl('hall_session_copy', cinemaAdmin.subject, {'session_id': object.id}) }}" class="btn btn-sm btn-default edit_link" title="{{ 'action_edit'|trans({}, 'SonataAdminBundle') }}">
+        <i class="fa fa-copy" aria-hidden="true"></i>
+        {{ 'action_copy'|trans({}, 'SonataAdminBundle') }}
+    </a>
+{% endif %}

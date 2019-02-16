@@ -16,7 +16,6 @@ use Sonata\Form\Type\DateTimePickerType;
 
 final class SeansAdmin extends AbstractAdmin
 {
-
     /**
      * {@inheritdoc}
      */
@@ -51,6 +50,7 @@ final class SeansAdmin extends AbstractAdmin
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
+                    'copy' => ['template' => 'admin\SessionAdmin\list__action_copy.html.twig'],
                 ],
             ]);
     }

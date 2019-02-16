@@ -2,3 +2,8 @@ services:
     App\Util\PasswordUpdater:
         class: App\Util\PasswordUpdater
         arguments: ['@security.encoder_factory']
+
+    app.util.session_clonner:
+        class: App\Util\SessionClonner
+        public: true
+        arguments: ['@doctrine.orm.entity_manager']
