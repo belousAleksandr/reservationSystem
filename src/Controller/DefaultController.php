@@ -45,7 +45,7 @@ class DefaultController extends AbstractController
     {
         $form = $this->createForm(SessionRequestType::class, null, [
             'method' => 'post',
-            'action' => $this->generateUrl('index', ['slug' => $cinema->getSlug()])
+            'action' => $this->generateUrl('select_date', ['slug' => $cinema->getSlug()])
         ]);
         $form->add('submit', SubmitType::class);
 
