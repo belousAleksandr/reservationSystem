@@ -45,6 +45,7 @@ final class HallSessionAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('name')
+            ->add('datetime', null, ['label' => 'session_time'])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],

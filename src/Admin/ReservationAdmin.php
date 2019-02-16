@@ -30,6 +30,8 @@ final class ReservationAdmin extends AbstractAdmin
         $listMapper
 			->add('id')
             ->add('session.name')
+            ->add('summaryPrice')
+            ->add('created')
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
