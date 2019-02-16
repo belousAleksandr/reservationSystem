@@ -30,8 +30,8 @@ final class CinemaAdmin extends AbstractAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('hall_session_copy', '{id}/hall-session-copy/{session_id}', [
-            '_controller' => 'App\Controller\Admin\SeansAdminController:copyAction'
+        $collection->add('hall_session_copy', '{id}/hall-session-copy/{hall_session_id}', [
+            '_controller' => 'App\Controller\Admin\HallSessionAdminController:copyAction'
         ]);
     }
 
@@ -71,8 +71,8 @@ final class CinemaAdmin extends AbstractAdmin
                     return;
                 }
 
-                $menu->addChild('Manage Seans', [
-                    'uri' => $childAdmin->generateUrl('admin.seans.list', ['id' => $childId])
+                $menu->addChild('Manage sessions', [
+                    'uri' => $childAdmin->generateUrl('admin.hall_session.list', ['id' => $childId])
                 ]);
             }
 

@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Reservation;
 use App\Entity\ReservationOwner;
-use App\Entity\Seans;
+use App\Entity\HallSession;
 use App\Entity\Seat;
 use App\Form\Type\ReservationOwnerType;
 use App\Form\Type\ReservationSeatsType;
@@ -46,7 +46,7 @@ class ReservationType extends AbstractType
         }
 
         $builder->add('seats', ReservationSeatsType::class, [
-            'session' => $options['session']
+            'hall_session' => $options['hall_session']
         ]);
     }
 
@@ -57,10 +57,10 @@ class ReservationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Reservation::class,
-            'session' => null
+            'hall_session' => null
         ]);
 
-        $resolver->setAllowedTypes('session', [Seans::class]);
+        $resolver->setAllowedTypes('hall_session', [HallSession::class]);
     }
 
     /**

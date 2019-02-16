@@ -21,10 +21,10 @@ class Row
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Seans", inversedBy="rows")
+     * @ORM\ManyToOne(targetEntity="HallSession", inversedBy="rows")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $seans;
+    private $hallSession;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Seat", mappedBy="row",cascade={"persist", "remove"}, orphanRemoval=true)
@@ -41,14 +41,14 @@ class Row
         return $this->id;
     }
 
-    public function getSeans(): ?Seans
+    public function getHallSession(): ?HallSession
     {
-        return $this->seans;
+        return $this->hallSession;
     }
 
-    public function setSeans(?Seans $seans): self
+    public function setHallSession(?HallSession $hallSession): self
     {
-        $this->seans = $seans;
+        $this->hallSession = $hallSession;
 
         return $this;
     }

@@ -31,9 +31,9 @@ class Hall
     private $cinema;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Seans", mappedBy="hall", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="HallSession", mappedBy="hall", orphanRemoval=true)
      */
-    private $seans;
+    private $hallSessions;
 
     /**
      * @ORM\Column(type="integer")
@@ -47,7 +47,7 @@ class Hall
 
     public function __construct()
     {
-        $this->seans = new ArrayCollection();
+        $this->hallSessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,38 +87,38 @@ class Hall
     }
 
     /**
-     * @return Collection|Seans[]
+     * @return Collection|HallSession[]
      */
-    public function getSeans(): Collection
+    public function getHallSessions(): Collection
     {
-        return $this->seans;
+        return $this->hallSessions;
     }
 
     /**
-     * @param Seans $sean
+     * @param HallSession $hallSession
      * @return Hall
      */
-    public function addSean(Seans $sean): self
+    public function addSean(HallSession $hallSession): self
     {
-        if (!$this->seans->contains($sean)) {
-            $this->seans[] = $sean;
-            $sean->setHall($this);
+        if (!$this->hallSessions->contains($hallSession)) {
+            $this->hallSessions[] = $hallSession;
+            $hallSession->setHall($this);
         }
 
         return $this;
     }
 
     /**
-     * @param Seans $sean
+     * @param HallSession $hallSession
      * @return Hall
      */
-    public function removeSean(Seans $sean): self
+    public function removeSean(HallSession $hallSession): self
     {
-        if ($this->seans->contains($sean)) {
-            $this->seans->removeElement($sean);
+        if ($this->hallSessions->contains($hallSession)) {
+            $this->hallSessions->removeElement($hallSession);
             // set the owning side to null (unless already changed)
-            if ($sean->getHall() === $this) {
-                $sean->setHall(null);
+            if ($hallSession->getHall() === $this) {
+                $hallSession->setHall(null);
             }
         }
 

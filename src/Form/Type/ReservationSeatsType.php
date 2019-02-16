@@ -2,7 +2,7 @@
 
 namespace App\Form\Type;
 
-use App\Entity\Seans;
+use App\Entity\HallSession;
 use App\Entity\Seat;
 use App\Repository\SeatRepository;
 use Doctrine\ORM\EntityManager;
@@ -25,8 +25,8 @@ class ReservationSeatsType extends AbstractType
 
             return $seatsRepository->createQueryBuilder('seat')
                 ->leftJoin('seat.row', 'row')
-                ->where('row.seans = :session')
-                ->setParameter('session', $optionsResolver->offsetGet('session'));
+                ->where('row.hallSession = :hall_session')
+                ->setParameter('hall_session', $optionsResolver->offsetGet('hall_session'));
         });
 
         $resolver->setDefault('class', Seat::class);
@@ -55,8 +55,8 @@ class ReservationSeatsType extends AbstractType
             return $attr;
         });
 
-        $resolver->setRequired('session');
-        $resolver->setAllowedTypes('session', Seans::class);
+        $resolver->setRequired('hall_session');
+        $resolver->setAllowedTypes('hall_session', HallSession::class);
     }
 
     /**

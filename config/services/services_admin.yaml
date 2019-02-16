@@ -16,14 +16,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Hall, show_in_dashboard: false }
         calls:
-            - [addChild, ['@admin.seans', 'hall']]
+            - [addChild, ['@admin.hall_session', 'hall']]
         public: true
 
-    admin.seans:
-        class: App\Admin\SeansAdmin
-        arguments: [~, App\Entity\Seans, App\Controller\Admin\SeansAdminController]
+    admin.hall_session:
+        class: App\Admin\HallSessionAdmin
+        arguments: [~, App\Entity\HallSession, App\Controller\Admin\HallSessionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Seans, show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: HallSession, show_in_dashboard: false }
         public: true
 
     admin.reservation:

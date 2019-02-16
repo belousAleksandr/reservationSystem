@@ -3,7 +3,7 @@ services:
         class: App\Util\PasswordUpdater
         arguments: ['@security.encoder_factory']
 
-    app.util.session_clonner:
-        class: App\Util\SessionClonner
+    app.util.hall_session_clonner:
+        class: App\Util\HallSessionClonner
         public: true
         arguments: ['@doctrine.orm.entity_manager']

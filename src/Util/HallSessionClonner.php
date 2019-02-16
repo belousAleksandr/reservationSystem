@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Util;
 
-use App\Entity\Seans;
+use App\Entity\HallSession;
 use App\Entity\Seat;
 use Doctrine\ORM\EntityManagerInterface;
 
-class SessionClonner
+class HallSessionClonner
 {
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -23,7 +23,7 @@ class SessionClonner
         $this->entityManager = $entityManager;
     }
 
-    public function copy(Seans $session)
+    public function copy(HallSession $session)
     {
         $copiedSession = clone $session;
         $this->copyRows($session, $copiedSession);
@@ -36,10 +36,10 @@ class SessionClonner
     /**
      * Clone rows from one session to another
      *
-     * @param Seans $session
-     * @param Seans $copiedSession
+     * @param HallSession $session
+     * @param HallSession $copiedSession
      */
-    private function copyRows(Seans $session, Seans $copiedSession)
+    private function copyRows(HallSession $session, HallSession $copiedSession)
     {
         foreach ($session->getRows() as $row) {
             $copiedRow = clone $row;
@@ -65,7 +65,7 @@ class SessionClonner
         return $copiedSeat;
     }
 
-    private function save(Seans $session)
+    private function save(HallSession $session)
     {
         $this->entityManager->persist($session);
         $this->entityManager->flush();

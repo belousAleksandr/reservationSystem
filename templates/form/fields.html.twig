@@ -1,14 +1,14 @@
 {% form_theme form _self %}
 
-{% block seans_rows_row %}
+{% block hall_session_rows_row %}
     {% spaceless %}
-        <div class="seans-row-wrap">
-            <div class="seans-table">
+        <div class="hall-session-row-wrap">
+            <div class="hall-session-table">
                 {% for rowForm in form.children %}
-                    <div class="seans-row">
+                    <div class="hall-session-row">
 
                         {% for columnForm in rowForm.seats.children %}
-                        <div class="seans-seat">
+                        <div class="hall-session-seat">
                             {{ form_widget(columnForm.status) }}
                             {{ form_widget(columnForm.price) }}
                         </div>

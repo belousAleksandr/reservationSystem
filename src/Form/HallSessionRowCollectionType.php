@@ -8,14 +8,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SeansRowCollectionType extends AbstractType
+class HallSessionRowCollectionType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function getBlockPrefix()
     {
-        return 'seans_rows';
+        return 'hall_session_rows';
     }
 
     /**

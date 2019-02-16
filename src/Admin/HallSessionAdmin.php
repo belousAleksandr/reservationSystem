@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
-use App\Form\SeansRowCollectionType;
-use App\Form\SeansRowType;
+use App\Form\HallSessionRowCollectionType;
+use App\Form\HallSessionRowType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -14,7 +14,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DateTimePickerType;
 
-final class SeansAdmin extends AbstractAdmin
+final class HallSessionAdmin extends AbstractAdmin
 {
     /**
      * {@inheritdoc}
@@ -72,8 +72,8 @@ final class SeansAdmin extends AbstractAdmin
                 'dp_min_view_mode'      => 'days',
                 'dp_min_date' => (new \DateTime())->format('Y-m-d'),
             ])
-            ->add('rows', SeansRowCollectionType::class, [
-                'entry_type' => SeansRowType::class,
+            ->add('rows', HallSessionRowCollectionType::class, [
+                'entry_type' => HallSessionRowType::class,
                 'entry_options' => [],
                 'by_reference'=> false
             ])

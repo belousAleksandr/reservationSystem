@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Seans;
-use App\Util\SessionClonner;
+use App\Entity\HallSession;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-final class SeansAdminController extends CRUDController
+final class HallSessionAdminController extends CRUDController
 {
     /**
      * Copy action.
-     *
-     * @param Seans $session
+     * @ParamConverter("hallSession", options={"mapping": {"hall_session_id": "id"}})
+     * @param HallSession $hallSession
      * @throws AccessDeniedException If access is not granted
      * @throws \RuntimeException     If no editable field is defined
      *
      * @return Response
      */
-    public function copyAction(Seans $session)
+    public function copyAction(HallSession $hallSession)
     {
 
-        $this->admin->checkAccess('hall_session_copy', $session);
+        $this->admin->checkAccess('hall_session_copy', $hallSession);
 
         try {
-            $clonner = $this->get('app.util.session_clonner');
-            $newObject = $clonner->copy($session);
+            $clonner = $this->get('app.util.hall_session_clonner');
+            $newObject = $clonner->copy($hallSession);
 //            $this->addFlash(
 //                'sonata_flash_success',
 //                $this->trans(
@@ -41,7 +41,7 @@ final class SeansAdminController extends CRUDController
 
             // redirect to edit mode
             return $this->redirect($this->admin->getChild('admin.hall')->generateObjectUrl(
-                'admin.seans.edit', $this->admin->getSubject(), ['childChildId' => $newObject->getId()
+                'admin.hall_session.edit', $this->admin->getSubject(), ['childChildId' => $newObject->getId()
 
             ]));
         } catch (ModelManagerException $e) {

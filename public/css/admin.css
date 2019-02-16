@@ -1,17 +1,17 @@
-.seans-row {
+.hall-session-row {
     display: table-row;
 }
 
-.seans-seat {
+.hall-session-seat {
     width: 30px;
     display: table-cell;
 }
 
-.seans-table {
+.hall-session-table {
     display: table;
 }
 
-.seans-row-wrap {
+.hall-session-row-wrap {
     overflow: scroll;
     width: 100%;
 }

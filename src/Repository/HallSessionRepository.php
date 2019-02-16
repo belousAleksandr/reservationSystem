@@ -3,27 +3,27 @@
 namespace App\Repository;
 
 use App\Entity\Cinema;
-use App\Entity\Seans;
+use App\Entity\HallSession;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Seans|null find($id, $lockMode = null, $lockVersion = null)
- * @method Seans|null findOneBy(array $criteria, array $orderBy = null)
- * @method Seans[]    findAll()
- * @method Seans[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method HallSession|null find($id, $lockMode = null, $lockVersion = null)
+ * @method HallSession|null findOneBy(array $criteria, array $orderBy = null)
+ * @method HallSession[]    findAll()
+ * @method HallSession[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SeansRepository extends ServiceEntityRepository
+class HallSessionRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Seans::class);
+        parent::__construct($registry, HallSession::class);
     }
 
      /**
       * @param Cinema $cinema
       * @param \DateTime $dateTime
-      * @return Seans[] Returns an array of Seans objects
+      * @return HallSession[] Returns an array of HallSessions objects
       */
     public function findByCinemaAndDate(Cinema $cinema, \DateTime $dateTime): array
     {
@@ -44,7 +44,7 @@ class SeansRepository extends ServiceEntityRepository
     }
 
     /*
-    public function findOneBySomeField($value): ?Seans
+    public function findOneBySomeField($value): ?HallSession
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

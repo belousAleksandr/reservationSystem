@@ -27,7 +27,7 @@ class Reservation
     private $cinema;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Seans")
+     * @ORM\ManyToOne(targetEntity="HallSession")
      * @ORM\JoinColumn(nullable=false)
      */
     private $session;
@@ -75,12 +75,12 @@ class Reservation
         return $this;
     }
 
-    public function getSession(): ?Seans
+    public function getSession(): ?HallSession
     {
         return $this->session;
     }
 
-    public function setSession(?Seans $session): self
+    public function setSession(?HallSession $session): self
     {
         $this->session = $session;
 

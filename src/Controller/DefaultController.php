@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cinema;
 use App\Entity\Reservation;
-use App\Entity\Seans;
+use App\Entity\HallSession;
 use App\Form\ReservationType;
 use App\Form\SessionRequestType;
 use App\Manager\CinemaManager;
@@ -55,7 +55,7 @@ class DefaultController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SessionRequest $sessionRequest */
             $sessionRequest = $form->getData();
-            return $this->redirectToRoute('selectSession', [
+            return $this->redirectToRoute('select_hall_session', [
                 'slug' => $cinema->getSlug(),
                 'date' => $sessionRequest->getDate()->format('Y-m-d')]);
         }
@@ -67,16 +67,16 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/sessions/{date}/", name="selectSession")
+     * @Route("/{slug}/hall-sessions/{date}/", name="select_hall_session")
      *
      * @param Cinema $cinema
      * @param \DateTime $date
      * @return Response
      */
-    public function selectSessionAction(Cinema $cinema, \DateTime $date): Response
+    public function selectHallSessionAction(Cinema $cinema, \DateTime $date): Response
     {
-        $seansRepository = $this->getDoctrine()->getRepository(Seans::class);
-        $sessions = $seansRepository->findByCinemaAndDate($cinema, $date);
+        $hallSessionRepository = $this->getDoctrine()->getRepository(HallSession::class);
+        $sessions = $hallSessionRepository->findByCinemaAndDate($cinema, $date);
 
         return $this->render('default/select_session.html.twig', [
             'sessions' => $sessions,
@@ -88,24 +88,24 @@ class DefaultController extends AbstractController
      * @ParamConverter("cinema", options={"mapping": {"slug": "slug"}})
      *
      * @param Cinema $cinema
-     * @param Seans $seans
+     * @param HallSession $hallSession
      * @param Request $request
      *
      * @return Response
      */
-    public function selectSeatsAction(Cinema $cinema, Seans $seans, Request $request): Response
+    public function selectSeatsAction(Cinema $cinema, HallSession $hallSession, Request $request): Response
     {
         $reservation = new Reservation();
         $reservation
             ->setCinema($cinema)
-            ->setSession($seans);
+            ->setSession($hallSession);
 
         $form = $this->createForm(ReservationType::class, $reservation, [
             'action' => $this->generateUrl('selectSeats', [
                 'slug' => $cinema->getSlug(),
-                'id' => $seans->getId()
+                'id' => $hallSession->getId()
             ]),
-            'session' => $seans]);
+            'hall_session' => $hallSession]);
 
         $form->add('submit', SubmitType::class);
 
@@ -123,7 +123,7 @@ class DefaultController extends AbstractController
 
         return $this->render('default/select_seats.html.twig', [
             'form' => $form->createView(),
-            'session' => $seans
+            'hallSession' => $hallSession
         ]);
     }
 

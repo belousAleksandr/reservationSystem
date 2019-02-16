@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SeansRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\HallSessionRepository")
  */
-class Seans
+class HallSession
 {
     use TimestampableTrait;
 
@@ -26,13 +26,13 @@ class Seans
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Hall", inversedBy="seans")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Hall", inversedBy="hallSessions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $hall;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Row", mappedBy="seans", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Row", mappedBy="hallSession", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $rows;
 
@@ -123,7 +123,7 @@ class Seans
     {
         if (!$this->rows->contains($row)) {
             $this->rows[] = $row;
-            $row->setSeans($this);
+            $row->setHallSession($this);
         }
 
         return $this;
@@ -134,8 +134,8 @@ class Seans
         if ($this->rows->contains($row)) {
             $this->rows->removeElement($row);
             // set the owning side to null (unless already changed)
-            if ($row->getSeans() === $this) {
-                $row->setSeans(null);
+            if ($row->getHallSession() === $this) {
+                $row->setHallSession(null);
             }
         }
 
