@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class ReservationOwner implements UserInterface, UserPasswordInterface
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

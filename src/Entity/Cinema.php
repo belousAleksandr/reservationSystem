@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Cinema
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Seans
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

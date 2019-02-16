@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Seat
 {
+    use TimestampableTrait;
+
     const STATUS_ENABLED = 'enabled';
     const STATUS_BOOKED = 'booked';
     const STATUS_DISABLED = 'disabled';
