@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\HallSession;
 use App\Entity\Seat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -34,6 +35,23 @@ class SeatRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    /**
+     * Returns an array of Seat objects related HallSession
+     *
+     * @param HallSession $hallSession
+     * @return Seat[]
+     */
+    public function findReservedSeatsByHallSession(HallSession $hallSession): array
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.row', 'row')
+            ->andWhere('row.hallSession = :hallSession')
+            ->andWhere('s.reservation IS NOT NULL')
+            ->setParameter('hallSession', $hallSession)
+            ->getQuery()
+            ->getResult();
     }
 
     /*
