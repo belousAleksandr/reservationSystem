@@ -1,10 +1,44 @@
 security:
+    access_decision_manager:
+        strategy: unanimous
     role_hierarchy:
         ROLE_RESERVATION_OWNER: [ROLE_USER]
-        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN_CINEMA_HALL_SESSION_COPY]
+        ROLE_ADMIN:
+          - ROLE_USER
+          - ROLE_SONATA_ADMIN
+          - ROLE_ADMIN_CINEMA_HALL_SESSION_COPY
+          - ROLE_ADMIN_CINEMA_LIST
+          - ROLE_ADMIN_CINEMA_CREATE
+          - ROLE_ADMIN_CINEMA_EDIT
+          - ROLE_ADMIN_CINEMA_DELETE
+          - ROLE_ADMIN_CINEMA_VIEW
+          - ROLE_ADMIN_HALL_LIST
+          - ROLE_ADMIN_HALL_CREATE
+          - ROLE_ADMIN_HALL_EDIT
+          - ROLE_ADMIN_HALL_DELETE
+          - ROLE_ADMIN_HALL_VIEW
+          - ROLE_ADMIN_HALL_SESSION_LIST
+          - ROLE_ADMIN_HALL_SESSION_CREATE
+          - ROLE_ADMIN_HALL_SESSION_EDIT
+          - ROLE_ADMIN_HALL_SESSION_DELETE
+          - ROLE_ADMIN_HALL_SESSION_VIEW
+          - ROLE_ADMIN_RESERVATION_LIST
+          - ROLE_ADMIN_RESERVATION_CREATE
+          - ROLE_ADMIN_RESERVATION_EDIT
+          - ROLE_ADMIN_RESERVATION_DELETE
+          - ROLE_ADMIN_RESERVATION_VIEW
+          - ROLE_SONATA_USER_ADMIN_USER_LIST
+          - ROLE_SONATA_USER_ADMIN_USER_CREATE
+          - ROLE_SONATA_USER_ADMIN_USER_EDIT
+          - ROLE_SONATA_USER_ADMIN_USER_DELETE
+          - ROLE_SONATA_USER_ADMIN_USER_VIEW
+          - ROLE_SONATA_USER_ADMIN_GROUP_LIST
+          - ROLE_SONATA_USER_ADMIN_GROUP_CREATE
+          - ROLE_SONATA_USER_ADMIN_GROUP_EDIT
+          - ROLE_SONATA_USER_ADMIN_GROUP_DELETE
+          - ROLE_SONATA_USER_ADMIN_GROUP_VIEW
+
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        SONATA:
-            - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
@@ -74,7 +108,7 @@ security:
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
-        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/admin/, role: [ROLE_SONATA_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: ^/reserving/*, role: [IS_AUTHENTICATED_ANONYMOUSLY, ROLE_RESERVATION_OWNER] }
