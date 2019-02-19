@@ -113,6 +113,12 @@
     "jms/metadata": {
         "version": "1.7.0"
     },
+    "knplabs/gaufrette": {
+        "version": "v0.8.1"
+    },
+    "knplabs/knp-gaufrette-bundle": {
+        "version": "v0.5.3"
+    },
     "knplabs/knp-menu": {
         "version": "2.3.0"
     },
