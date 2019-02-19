@@ -83,8 +83,8 @@ class HallVoterTest extends TestCase
             ->expects(self::exactly(2))
             ->method('decide')
             ->withConsecutive(
-                [$this->token, [HallSessionVoter::DELETE], $hallSessionMock],
-                [$this->token, [HallSessionVoter::DELETE], $hallSessionMock2]
+                [$this->token, [HallSessionVoterTest::ROLE_DELETE], $hallSessionMock],
+                [$this->token, [HallSessionVoterTest::ROLE_DELETE], $hallSessionMock2]
             )->willReturn(true);
 
         $this->assertEquals(VoterInterface::ACCESS_GRANTED, $this->voter->vote($this->token, $hallMock, [self::ROLE_DELETE]));
@@ -126,8 +126,8 @@ class HallVoterTest extends TestCase
             ->expects(self::exactly(2))
             ->method('decide')
             ->withConsecutive(
-                [$this->token, [HallSessionVoter::DELETE], $hallSessionMock],
-                [$this->token, [HallSessionVoter::DELETE], $hallSessionMock2]
+                [$this->token, [HallSessionVoterTest::ROLE_DELETE], $hallSessionMock],
+                [$this->token, [HallSessionVoterTest::ROLE_DELETE], $hallSessionMock2]
             )->willReturnOnConsecutiveCalls(true, false);
 
         $this->assertEquals(VoterInterface::ACCESS_DENIED, $this->voter->vote($this->token, $hallMock, [self::ROLE_DELETE]));

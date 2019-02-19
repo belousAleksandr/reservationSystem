@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class HallSessionVoterTest extends TestCase
 {
-    private const DELETE = 'ROLE_ADMIN_HALL_SESSION_DELETE';
+    const ROLE_DELETE = 'ROLE_ADMIN_HALL_SESSION_DELETE';
     /** @var TokenInterface|MockObject */
     protected $token;
     /** @var HallSessionVoter */
@@ -33,12 +33,12 @@ class HallSessionVoterTest extends TestCase
     public function getSupportTests(): array
     {
         return [
-            [[self::DELETE], VoterInterface::ACCESS_DENIED, new HallSession(), 'ACCESS_DENIED if user has no permissions'],
+            [[self::ROLE_DELETE], VoterInterface::ACCESS_DENIED, new HallSession(), 'ACCESS_DENIED if user has no permissions'],
             [['TEST_ROLE'], VoterInterface::ACCESS_ABSTAIN, new HallSession(), 'ACCESS_ABSTAIN if no attribute is supported'],
 
-            [[self::DELETE], VoterInterface::ACCESS_ABSTAIN, $this, 'ACCESS_ABSTAIN if class is not supported'],
+            [[self::ROLE_DELETE], VoterInterface::ACCESS_ABSTAIN, $this, 'ACCESS_ABSTAIN if class is not supported'],
 
-            [[self::DELETE], VoterInterface::ACCESS_ABSTAIN, null, 'ACCESS_ABSTAIN if object is null'],
+            [[self::ROLE_DELETE], VoterInterface::ACCESS_ABSTAIN, null, 'ACCESS_ABSTAIN if object is null'],
 
             [[], VoterInterface::ACCESS_ABSTAIN, new HallSession(), 'ACCESS_ABSTAIN if no attributes were provided'],
         ];
@@ -65,7 +65,7 @@ class HallSessionVoterTest extends TestCase
         $this->seatRepositoryMock->method('findReservedSeatsByHallSession')
             ->with($hallSessionMock)
             ->willReturn([]);
-        $this->assertEquals(VoterInterface::ACCESS_GRANTED, $this->voter->vote($this->token, $hallSessionMock, [self::DELETE]));
+        $this->assertEquals(VoterInterface::ACCESS_GRANTED, $this->voter->vote($this->token, $hallSessionMock, [self::ROLE_DELETE]));
     }
 
     /**
@@ -81,7 +81,7 @@ class HallSessionVoterTest extends TestCase
         $this->seatRepositoryMock->method('findReservedSeatsByHallSession')
             ->with($hallSessionMock)
             ->willReturn([$seatMock]);
-        $this->assertEquals(VoterInterface::ACCESS_DENIED, $this->voter->vote($this->token, $hallSessionMock, [self::DELETE]));
+        $this->assertEquals(VoterInterface::ACCESS_DENIED, $this->voter->vote($this->token, $hallSessionMock, [self::ROLE_DELETE]));
     }
 
 }
