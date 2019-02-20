@@ -40,6 +40,11 @@ class Image
      */
     private $cinema;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Movie", inversedBy="images")
+     */
+    private $movie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,6 +100,18 @@ class Image
     public function setCinema(?Cinema $cinema): self
     {
         $this->cinema = $cinema;
+
+        return $this;
+    }
+
+    public function getMovie(): ?Movie
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(?Movie $movie): self
+    {
+        $this->movie = $movie;
 
         return $this;
     }
