@@ -41,6 +41,12 @@ class HallSession
      */
     private $datetime;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Movie")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $movie;
+
     public function __construct()
     {
         $this->rows = new ArrayCollection();
@@ -150,6 +156,18 @@ class HallSession
     public function setDatetime(\DateTimeInterface $datetime): self
     {
         $this->datetime = $datetime;
+
+        return $this;
+    }
+
+    public function getMovie(): ?Movie
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(?Movie $movie): self
+    {
+        $this->movie = $movie;
 
         return $this;
     }

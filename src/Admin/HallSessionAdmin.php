@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Entity\Movie;
 use App\Form\HallSessionRowCollectionType;
 use App\Form\HallSessionRowType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -13,6 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DateTimePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 final class HallSessionAdmin extends AbstractAdmin
 {
@@ -63,6 +65,9 @@ final class HallSessionAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('name')
+            ->add('movie', EntityType::class, [
+                'class' => Movie::class
+            ])
             ->add('datetime', DateTimePickerType::class, [
                 'dp_side_by_side'       => true,
                 'dp_use_current'        => false,
