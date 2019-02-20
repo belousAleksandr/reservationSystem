@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Form\Type\ImageType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -12,6 +13,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class CinemaAdmin extends AbstractAdmin
 {
@@ -114,7 +118,17 @@ final class CinemaAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('name')
-            ->add('slug');
+            ->add('slug')
+            ->add('images', CollectionType::class,
+                [
+                    'entry_type' => ImageType::class,
+                    'by_reference' => false,
+                    'allow_add'    => true,
+                    'allow_delete' => true,
+                    'label' => 'Fichier(s) :',
+                    'prototype' => true
+                ])
+        ;
     }
 
     /**
