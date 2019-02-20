@@ -61,11 +61,13 @@ final class CinemaAdmin extends AbstractAdmin
         }
 
         if ($this->isGranted('LIST')) {
-            $menu->addChild('Manage movies', [
+            $settinsKey = 'settings';
+            $menu->addChild($settinsKey, array('attributes' => array('dropdown' => true)));
+            $menu[$settinsKey]->addChild('Manage movies', [
                 'uri' => $admin->generateUrl('admin.movie.list', ['id' => $id])
             ]);
 
-            $menu->addChild('Manage Halls', [
+            $menu[$settinsKey]->addChild('Manage Halls', [
                 'uri' => $admin->generateUrl('admin.hall.list', ['id' => $id])
             ]);
 
