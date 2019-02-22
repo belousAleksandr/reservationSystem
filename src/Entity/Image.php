@@ -25,7 +25,7 @@ class Image
     private $src;
 
     /**
-     * @Vich\UploadableField(mapping="cinema_images", fileNameProperty="src")
+     * @Vich\UploadableField(mapping="images", fileNameProperty="src")
      * @var File
      */
     private $file;
