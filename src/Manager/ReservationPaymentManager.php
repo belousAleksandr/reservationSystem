@@ -7,7 +7,11 @@ namespace App\Manager;
 use App\Entity\Payment;
 use App\Entity\Reservation;
 use App\Entity\ReservationOwner;
+use App\Event\ReservationPayedEvent;
+use App\Events;
 use Payum\Core\Payum;
+use Payum\Core\Security\TokenInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ReservationPaymentManager
 {
@@ -16,14 +20,24 @@ class ReservationPaymentManager
     /** @var Payum */
     private $payum;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
+    /** @var ReservationManager */
+    private $reservationManager;
+
     /**
-     * ReservationManager constructor.
+     * ReservationPaymentManager constructor.
      *
      * @param Payum $payum
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param ReservationManager $reservationManager
      */
-    public function __construct(Payum $payum)
+    public function __construct(Payum $payum, EventDispatcherInterface $eventDispatcher, ReservationManager $reservationManager)
     {
         $this->payum = $payum;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->reservationManager = $reservationManager;
     }
 
     /**
@@ -59,5 +73,24 @@ class ReservationPaymentManager
         );
 
         return $captureToken->getTargetUrl();
+    }
+
+    /**
+     * @param TokenInterface $token
+     */
+    public function done(TokenInterface $token)
+    {
+        // You can invalidate the token, so that the URL cannot be requested any more:
+        $this->payum->getHttpRequestVerifier()->invalidate($token);
+
+        $identity = $token->getDetails();
+        /** @var Payment $model */
+        $model = $this->payum->getStorage($identity->getClass())->find($identity);
+        $reservationId = trim($model->getNumber(), self::RESERVATION_PREFIX);
+
+        $reservation = $this->reservationManager->find($reservationId);
+
+        $this->eventDispatcher->dispatch(Events::RESERVATION_PAYED, new ReservationPayedEvent($reservation));
+
     }
 }
