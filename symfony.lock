@@ -164,6 +164,18 @@
     "ocramius/proxy-manager": {
         "version": "2.0.4"
     },
+    "overblog/graphql-bundle": {
+        "version": "0.11",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.11",
+            "ref": "80a27b90b4928728bc2afe3ff1198826e033285c"
+        }
+    },
+    "overblog/graphql-php-generator": {
+        "version": "v0.7.4"
+    },
     "payum/core": {
         "version": "1.5.1"
     },
@@ -556,6 +568,9 @@
     },
     "webmozart/assert": {
         "version": "1.4.0"
+    },
+    "webonyx/graphql-php": {
+        "version": "v0.12.6"
     },
     "zendframework/zend-code": {
         "version": "3.1.0"
