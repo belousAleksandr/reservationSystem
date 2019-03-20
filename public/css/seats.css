@@ -1,0 +1,32 @@
+.seats-table {
+    display: table;
+}
+.seats-row {
+    display: table-row;
+}
+
+div.seats-cell {
+    display: table-cell;
+}
+
+div.seats-row div.seats-cell div.seats-body {
+    display: block;
+    background: #a02918;
+    border: grey;
+    width: 100px;
+    height: 100px;
+    vertical-align: center;
+    text-align: center;
+    margin: 2px;
+}
+
+div.seats-row div.seats-cell div.seats-body.disabled {
+    display: block;
+    background: none;
+    border: grey;
+    width: 100px;
+    height: 100px;
+    vertical-align: center;
+    text-align: center;
+    margin: 2px;
+}

@@ -35,7 +35,7 @@ class ReservationSeatsType extends AbstractType
         $resolver->setDefault('by_reference', false);
         $resolver->setDefault('choice_label', function ($seat, $key, $value) {
             /** @var Seat $seat */
-            return strtoupper($seat->getId());
+            return false;
         });
 
         $resolver->setDefault('group_by', function ($seat, $key, $value) {

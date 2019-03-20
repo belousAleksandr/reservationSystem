@@ -1,5 +1,7 @@
-{% form_theme form 'form/fields.html.twig' %}
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('css/seats.css') }}" rel="stylesheet" type="text/css" media="all">
+{% endblock %}
 
 {% block title %}Hello DefaultController!{% endblock %}
 

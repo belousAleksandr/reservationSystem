@@ -8,10 +8,10 @@
                     <div class="hall-session-row">
 
                         {% for columnForm in rowForm.seats.children %}
-                        <div class="hall-session-seat">
-                            {{ form_widget(columnForm.status) }}
-                            {{ form_widget(columnForm.price) }}
-                        </div>
+                            <div class="hall-session-seat">
+                                {{ form_widget(columnForm.status) }}
+                                {{ form_widget(columnForm.price) }}
+                            </div>
                         {% endfor %}
                     </div>
                 {% endfor %}
@@ -22,18 +22,32 @@
 
 {% block reservation_seats_widget %}
     {% spaceless %}
-        {% for groupData in form.vars.choices %}
-            <div>
-                Row {{ groupData.label }}
+        <div class="seats-table">
+            {% for groupData in form.vars.choices %}
                 <div>
-                    {% for seat in groupData.choices %}
+                    Row {{ loop.index }}
+                    <div class="seats-row">
                         <div>
-                            {{ form_widget(form[seat.value]) }}
-                            {{ form_label(form[seat.value]) }}
+                            {% for seat in groupData.choices %}
+                                <div class="seats-cell">
+                                    <div class="seats-body {% if seat.data.status != constant('App\\Entity\\Seat::STATUS_ENABLED') %}disabled{% endif %}">
+                                        {% if seat.data.status == constant('App\\Entity\\Seat::STATUS_ENABLED') %}
+                                            {{ form_widget(form[seat.value]) }}
+
+                                            <div>{{ loop.index }}</div>
+                                            <div>
+                                                {{ seat.data.price }}
+                                            </div>
+                                        {% else %}
+                                            &nbsp;
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     {% endspaceless %}
 {% endblock %}
