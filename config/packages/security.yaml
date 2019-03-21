@@ -75,7 +75,7 @@ security:
             anonymous:          true
 
         reservation_owner:
-            pattern:            /reserving/(.*)
+            pattern:            /(reserving|reservations)/(.*)
             context:            reservation_owner
             provider:           reservation_owner
             guard:
@@ -117,6 +117,7 @@ security:
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: ^/reserving/*, role: [IS_AUTHENTICATED_ANONYMOUSLY, ROLE_RESERVATION_OWNER] }
+        - { path: ^/reservations/*, role: [ROLE_RESERVATION_OWNER] }
         - { path: ^/reserving/reservation-owner/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reserving/reservation-owner/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reserving/reservation-owner/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }

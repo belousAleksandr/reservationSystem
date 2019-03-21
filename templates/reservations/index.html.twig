@@ -1,0 +1,16 @@
+{% extends base_template %}
+
+{% block body %}
+    <ul>
+        {% for reservation in reservations %}
+            <li>
+                {{ reservation.session.name }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="navigation">
+        {{ knp_pagination_render(reservations) }}
+    </div>
+
+{% endblock %}
